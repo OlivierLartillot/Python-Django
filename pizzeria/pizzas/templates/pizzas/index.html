@@ -1,1 +1,27 @@
-<h1>Bienvenue dans ma pizzeria</h1>
+{% extends 'pizzas/base.html' %}
+
+{% block content %}
+
+    <h1>Bienvenue dans ma pizzeria</h1>
+
+    <h2>Voici la liste des ingrédients</h2>
+    <p><a href="{% url 'pizzas:new_topping' %}">Ajouter un ingrédient</a></p>
+    <ul>
+    {% for topping in toppings%}
+        <li>
+            <p>
+                {{topping}} 
+                <a href="{% url 'pizzas:edit_topping' topping.id %}">Modifier</a>
+                <a href="{% url 'pizzas:delete_topping' topping.id %}">supprimer</a>
+            </p>
+            <!-- <img src="http://localhost:8000/images/anchois.jpg" alt="image de {{ topping }}" /> -->
+            {% load static %}
+            <!-- <img src="{% static 'pizzas/anchois.jpg' %}" alt="My image"> -->
+            <img src="{% static 'pizzas/'%}{{topping.field_name}}" alt="{{ topping }}">
+        </li>
+    {% empty %}
+        <li>Désolé, il n'y a pas d'ingrédients pour le moment.</li>
+    {% endfor %}
+    </ul> 
+
+{% endblock content %}

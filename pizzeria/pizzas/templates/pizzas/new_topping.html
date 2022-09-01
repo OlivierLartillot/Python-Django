@@ -1,0 +1,12 @@
+{% extends 'pizzas/base.html' %}
+
+{% block content %}
+
+<h1>Ajoutez un topping</h1>
+<form action="{% url 'pizzas:new_topping' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">Ajouter ce topping</button>
+</form>
+
+{% endblock content %}
