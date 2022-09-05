@@ -1,0 +1,15 @@
+{% extends 'pizzas/base.html' %}
+
+{% block content %}
+
+    <form method="post" action="{% url 'utilisateurs:register' %}">
+
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button type="submit">S'inscrire</button>
+        <input type="hidden" value="{% url 'pizzas:index' %}"/>
+        
+    </form>
+
+{% endblock content %}
