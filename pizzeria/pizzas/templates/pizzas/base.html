@@ -1,6 +1,13 @@
 <ul>
     <li><a href="{% url 'pizzas:index' %}">Accueil</a> </li>
     <li><a href="{% url 'pizzas:pizzas' %}">Pizzas</a></li>
+    {% if user.is_authenticated %}
+        <p>Bonjour {{ user.username }} <a href="{% url 'utilisateurs:logout' %}">Se deconnecter</a></p>
+
+    {% else %}
+        <li><a href="{% url 'utilisateurs:login' %}">Se connecter</a></li>
+    {% endif %}
+    
 </ul>
 
 {% block content %}
