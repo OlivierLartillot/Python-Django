@@ -37,7 +37,10 @@ def new_pizza(request):
         #Des données POST soumises ! Il faut les traiter
         form = PizzaForm(data=request.POST)
         if form.is_valid():
-            form.save()
+            new_pizza = form.save(commit=False)
+            new_pizza.owner = request.user
+            new_pizza.save()
+
             return redirect('pizzas:pizzas')
 
     context = {'form': form}
