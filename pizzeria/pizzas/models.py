@@ -18,3 +18,14 @@ class Topping(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+class Pizza_Comment(models.Model):
+    '''Commentaires sur une pizza'''
+    title = models.CharField(max_length=50)
+    text = models.TextField()
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.title
+
