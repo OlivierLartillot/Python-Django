@@ -1,10 +1,10 @@
-import http
 from django.shortcuts import render, redirect
 
 from .models import Pizza, Topping
 from .forms import PizzaForm, ToppingForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from pizzas.functions import check_pizza_owner
 
 # Create your views here.
 def index(request):
@@ -21,8 +21,7 @@ def pizzas(request):
 @login_required
 def pizzas_toppings(request, pizza_id):
     pizza = Pizza.objects.get(id=pizza_id)
-    if pizza.owner != request.user:
-        raise Http404
+    check_pizza_owner(request, pizza, Http404)
     toppings = pizza.topping_set.all()
     context = {'pizza' : pizza, 'toppings': toppings}
     return render(request, 'pizzas/topping.html',context)
@@ -50,8 +49,7 @@ def new_pizza(request):
 def edit_pizza(request, pizza_id):
     '''Modfier une pizza'''
     pizza = Pizza.objects.get(id=pizza_id)
-    if pizza.owner != request.user:
-        raise Http404
+    check_pizza_owner(request, pizza, Http404)
     if request.method != 'POST':
         #Aucune donnée soumise, réation d'un formulaire vide
         form = PizzaForm(instance=pizza)
@@ -70,10 +68,8 @@ def delete_pizza(request, pizza_id):
     '''Modfier une pizza'''
 
     pizza = Pizza.objects.get(id=pizza_id)
-    if pizza.owner != request.user:
-        raise Http404
-    else:
-        pizza.delete()
+    check_pizza_owner(request, pizza, Http404)
+    pizza.delete()
 
     return redirect('pizzas:pizzas')
 
