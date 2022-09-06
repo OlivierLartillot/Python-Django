@@ -4,6 +4,13 @@
 
     <h1>Bienvenue dans ma pizzeria</h1>
 
+    <h2>Tutte le pizze</h2>
+    <ul>
+        {% for pizza in pizze %}
+        <li><a href="{% url 'pizzas:pizzas_toppings' pizza.id %}">{{ pizza }}</a></li>
+        {% endfor %}
+    </ul>
+
     <h2>Voici la liste des ingrédients</h2>
     <p><a href="{% url 'pizzas:new_topping' %}">Ajouter un ingrédient</a></p>
     <ul>

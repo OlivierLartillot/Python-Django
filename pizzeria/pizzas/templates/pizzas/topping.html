@@ -2,6 +2,7 @@
 
 {% block content %}
 
+    <!-- Section pizza -->
     <h1>{{pizza}}</h1>
     <ul>
     {% for topping in toppings %}
@@ -9,7 +10,32 @@
     {% empty %}
         <li>Désolé, il n'y a pas de garniture renseignée pour cette pizza !</li>
     {% endfor %}
-
     </ul>
 
+    <!-- Si ce n est pas ta pizza tu peux commenter -->
+    {% if is_not_owner %}
+        <form action="{% url 'pizzas:pizzas_toppings' pizza.id %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button name="submit">Valider</button>
+        </form>
+        <h2>Tous les Commentaires</h2>
+    {% else %}
+        <h2>Tous les Commentaires sur ta pizza</h2>
+    {% endif %} 
+
+    <!-- Zone des commentaires -->
+    
+
+    {% for comment in comments %}
+    <h3>
+        {{ comment.title }} - {{ comment.date_added }} - {{ comment.owner}}
+    </h3>
+    <p>
+        {{ comment.text }}
+    </p>
+    {% endfor %}
+
+
 {% endblock content %}
+

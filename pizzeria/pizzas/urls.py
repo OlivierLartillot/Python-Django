@@ -15,5 +15,7 @@ urlpatterns = [
     path('new_topping/', views.new_topping, name='new_topping'),
     path('edit_topping/<int:topping_id>', views.edit_topping, name='edit_topping'),
     path('delete_topping/<int:topping_id>', views.delete_topping, name='delete_topping'),
+    # Commentaires
+    path('comments/<int:pizza_id>', views.comment_pizza, name='comment_pizza')
 
 ]

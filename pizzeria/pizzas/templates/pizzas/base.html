@@ -1,14 +1,14 @@
+{% if user.is_authenticated %}
+<p>Bonjour {{ user.username }} <a href="{% url 'utilisateurs:logout' %}">Se deconnecter</a></p>
+
+{% else %}
+<li><a href="{% url 'utilisateurs:login' %}">Se connecter</a></li>
+<li><a href="{% url 'utilisateurs:register' %}">S'inscrire</a></li>
+{% endif %}
+
 <ul>
     <li><a href="{% url 'pizzas:index' %}">Accueil</a> </li>
-    <li><a href="{% url 'pizzas:pizzas' %}">Pizzas</a></li>
-    {% if user.is_authenticated %}
-        <p>Bonjour {{ user.username }} <a href="{% url 'utilisateurs:logout' %}">Se deconnecter</a></p>
-
-    {% else %}
-        <li><a href="{% url 'utilisateurs:login' %}">Se connecter</a></li>
-        <li><a href="{% url 'utilisateurs:register' %}">S'inscrire</a></li>
-    {% endif %}
-    
+    <li><a href="{% url 'pizzas:pizzas' %}">Mes Pizze</a></li>    
 </ul>
 
 {% block content %}

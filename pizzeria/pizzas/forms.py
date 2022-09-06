@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Pizza, Topping
+from .models import Pizza, Topping, Pizza_Comment
 
 class PizzaForm(forms.ModelForm):
     class Meta:
@@ -13,5 +13,14 @@ class ToppingForm(forms.ModelForm):
         model = Topping
         fields = ['pizza','name']
         labels = {'pizza': 'A quelle Pizza', 'name': 'Nom'}
+
+class PizzaCommentForm(forms.ModelForm):
+    class Meta:
+        model = Pizza_Comment
+        fields = ['title','text']
+        labels = {
+                    'title': 'Titre de votre commentaire',
+                     'text': 'Commentaire'
+                }
 
       

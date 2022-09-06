@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 
-from .models import Pizza, Topping
-from .forms import PizzaForm, ToppingForm
+from .models import Pizza, Topping, Pizza_Comment
+from .forms import * 
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from pizzas.functions import check_pizza_owner
@@ -9,7 +9,8 @@ from pizzas.functions import check_pizza_owner
 # Create your views here.
 def index(request):
     toppings = Topping.objects.all()
-    context = {'toppings': toppings}
+    pizze = Pizza.objects.all()
+    context = {'toppings': toppings, 'pizze': pizze}
     return render(request, 'pizzas/index.html', context)
 
 @login_required
@@ -20,10 +21,37 @@ def pizzas(request):
 
 @login_required
 def pizzas_toppings(request, pizza_id):
-    pizza = Pizza.objects.get(id=pizza_id)
-    check_pizza_owner(request, pizza, Http404)
+    '''Description des ingrédients d'une pizza'''
+    pizza = Pizza.objects.get(id=pizza_id)    
+
+    # Formulaire
+    if request.method != 'POST':
+        form = PizzaCommentForm()
+    else:
+        form = PizzaCommentForm(data=request.POST)
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.owner = request.user
+            new_comment.pizza = pizza
+            new_comment.save()
+            #rediriger vers une page commentaire
+        return redirect('pizzas:index') 
+    
+    # Commentaires
+    # récupérer les commentaires attachés à cette pizza
+    comments = Pizza_Comment.objects.filter(pizza=pizza.id).order_by('-date_added')
+    # il faudra tester dans la vue si > 0 pour afficher les commentaires 
+
+    is_not_owner = False
+    if pizza.owner != request.user:
+        is_not_owner = True
     toppings = pizza.topping_set.all()
-    context = {'pizza' : pizza, 'toppings': toppings}
+    context = {'form': form,
+               'is_not_owner': is_not_owner, 
+               'pizza': pizza, 
+               'toppings': toppings,
+               'comments': comments,
+               }
     return render(request, 'pizzas/topping.html',context)
 
 @login_required
@@ -110,5 +138,12 @@ def edit_topping(request, topping_id):
 def delete_topping(request,topping_id):
     '''Supprimer un ingrédient'''
     Topping.objects.get(id=topping_id).delete()
+
+    return redirect('pizzas:index')
+
+@login_required
+def comment_pizza(request, pizza_id):
+    '''Permet a l'utilisateur de commenter une pizza'''
+
 
     return redirect('pizzas:index')
