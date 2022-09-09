@@ -1,9 +1,22 @@
 {% extends 'pizzas/base.html' %}
 
+{% block page_header %}
+    <div class="jumbotron bg-light p-4">
+
+        <h1 class="display-4 text-center">Bienvenue sur Ma pizzeria</h1>
+
+        <p class="lead">Ma pizzeria est un projet créé au fur et à mesure de mon apprentissage sur Django. Ce genre de projet peut posséder des incohérences car il est simplement l'objet d'expérimentation de fonctionnalités au fur et à mesure de l'acquisition des compétences. </p>
+        <p class="lead">Parmis les choses à revoir pour un projet complet et cohérent: 
+            <ul>
+                <li>blocage de plus de pages "unauthorized"</li>
+                <li>filtrer les données à récupérées. ex:en l'état, je peux ajouter des ingrédients dans la pizza d'une autre personne.</li>
+                <li>gestion différente de l'ajout des ingrédients</li>
+            </ul>
+        </p>
+    </div>
+{% endblock page_header %}
+
 {% block content %}
-
-    <h1>Bienvenue dans ma pizzeria</h1>
-
     <h2>Tutte le pizze</h2>
     <ul>
         {% for pizza in pizze %}

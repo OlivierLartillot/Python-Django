@@ -35,6 +35,9 @@ INSTALLED_APPS = [
     'pizzas',
     'utilisateurs',
 
+    # Applications tierces
+    'bootstrap5',
+
     # app django par défaut
     'django.contrib.admin',
     'django.contrib.auth',
