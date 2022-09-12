@@ -3,10 +3,17 @@
 {% block content %}
 
 <h1>Ajoutez un topping</h1>
-<form action="{% url 'pizzas:new_topping' %}" method="post">
+<form action="{% url 'pizzas:new_topping' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">Ajouter ce topping</button>
 </form>
+
+{% for champ in postedForm %}
+
+    <p>{{ champ.value }}</p>
+{% endfor %}
+
+{{postedForm}}
 
 {% endblock content %}

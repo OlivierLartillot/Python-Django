@@ -1,3 +1,4 @@
+from multiprocessing.resource_sharer import stop
 from django.shortcuts import render, redirect
 
 from .models import Pizza, Topping, Pizza_Comment
@@ -110,8 +111,13 @@ def new_topping(request):
         form = ToppingForm()
     else:
         #Des données POST soumises ! Il faut les traiter
-        form = ToppingForm(data=request.POST)
+        form = ToppingForm(request.POST, request.FILES)
         if form.is_valid():
+
+            #postedForm = request.POST
+            #context = {'form':form, 'postedForm': postedForm}
+
+            #return render(request, 'pizzas/new_topping.html', context)
             form.save()
             return redirect('pizzas:index')
 

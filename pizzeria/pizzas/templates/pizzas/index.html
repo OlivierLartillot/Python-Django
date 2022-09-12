@@ -1,18 +1,23 @@
 {% extends 'pizzas/base.html' %}
 
+{% load static %} 
 {% block page_header %}
-    <div class="jumbotron bg-light p-4">
+    <div class="background"></div>
+    <div class="jumbotron p-3 jumbotron-index">
+        <div class="jumbotron-text">
+            <div class=" cadre-gris">
+                <h1 class=" text-center pb-4">Bienvenue sur Ma pizzeria</h1>
 
-        <h1 class="display-4 text-center">Bienvenue sur Ma pizzeria</h1>
-
-        <p class="lead">Ma pizzeria est un projet créé au fur et à mesure de mon apprentissage sur Django. Ce genre de projet peut posséder des incohérences car il est simplement l'objet d'expérimentation de fonctionnalités au fur et à mesure de l'acquisition des compétences. </p>
-        <p class="lead">Parmis les choses à revoir pour un projet complet et cohérent: 
-            <ul>
-                <li>blocage de plus de pages "unauthorized"</li>
-                <li>filtrer les données à récupérées. ex:en l'état, je peux ajouter des ingrédients dans la pizza d'une autre personne.</li>
-                <li>gestion différente de l'ajout des ingrédients</li>
-            </ul>
-        </p>
+                <p>Ma pizzeria est un projet créé au fur et à mesure de mon apprentissage sur Django. Ce genre de projet peut posséder des incohérences car il est simplement l'objet d'expérimentation de fonctionnalités au fur et à mesure de l'acquisition des compétences. </p>
+                <p>Parmis les choses à revoir pour un projet complet et cohérent: 
+                    <ul>
+                        <li>blocage de plus de pages "unauthorized"</li>
+                        <li>filtrer les données à récupérées. ex:en l'état, je peux ajouter des ingrédients dans la pizza d'une autre personne.</li>
+                        <li>gestion différente de l'ajout des ingrédients</li>
+                    </ul>
+                </p> 
+            </div> 
+        </div>
     </div>
 {% endblock page_header %}
 
@@ -25,23 +30,47 @@
     </ul>
 
     <h2>Voici la liste des ingrédients</h2>
-    <p><a href="{% url 'pizzas:new_topping' %}">Ajouter un ingrédient</a></p>
-    <ul>
-    {% for topping in toppings%}
-        <li>
-            <p>
-                {{topping}} 
-                <a href="{% url 'pizzas:edit_topping' topping.id %}">Modifier</a>
-                <a href="{% url 'pizzas:delete_topping' topping.id %}">supprimer</a>
-            </p>
-            <!-- <img src="http://localhost:8000/images/anchois.jpg" alt="image de {{ topping }}" /> -->
-            {% load static %}
-            <!-- <img src="{% static 'pizzas/anchois.jpg' %}" alt="My image"> -->
-            <img src="{% static 'pizzas/'%}{{topping.field_name}}" alt="{{ topping }}">
-        </li>
-    {% empty %}
-        <li>Désolé, il n'y a pas d'ingrédients pour le moment.</li>
-    {% endfor %}
-    </ul> 
+        <p><a href="{% url 'pizzas:new_topping' %}"><button type="button" class="btn btn-success btn-sm">Ajouter un ingrédient</button></a></p>
+
+  
+   
+
+         
+        <!-- <img src="http://localhost:8000/images/anchois.jpg" alt="image de {{ topping }}" /> -->
+        <!-- <img src="{% static 'pizzas/anchois.jpg' %}" alt="My image"> -->
+    {% if toppings %}
+    <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">image</th>
+            <th scope="col">Modifier</th>
+            <th scope="col">Supprimer</th>
+          </tr>
+        </thead>
+        
+        
+        <tbody>
+        
+            {% for topping in toppings%}   
+          <tr>
+            <th scope="row">{{topping}} </th>
+            <td><img src="{{ MEDIA_URL }}media/{{topping.field_name}}" alt="{{ topping }}"></td>
+            <td><a href="{% url 'pizzas:edit_topping' topping.id %}"><button type="button" class="btn btn-primary btn-sm">Modifier</button></a></td>
+            <td><a href="{% url 'pizzas:delete_topping' topping.id %}"><button type="button" class="btn btn-danger btn-sm">X</button></a></td>
+          </tr>
+           {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p>Il n'y a pas d'ingrédient pour le moment.</p>
+      {% endif %}
+        
+
+
+ 
+
+
+
 
 {% endblock content %}

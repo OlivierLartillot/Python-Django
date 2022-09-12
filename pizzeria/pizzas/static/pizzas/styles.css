@@ -1,0 +1,48 @@
+body {
+     background: #C0C0C0;
+}
+
+.jumbotron-index {
+    position: relative;
+    background: #C0C0C0;
+    overflow: hidden;
+    border-radius: 0.8rem;
+    
+}
+
+.jumbotron-text {
+ 
+    position: relative;
+    z-index: 2;    
+    font-weight: bolder;
+}
+
+.cadre-gris {
+    padding: 1rem;
+    background-color: rgba(237, 237, 237, 0.5);
+    border-radius: 10px;
+}
+
+.jumbotron-index::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.5;
+    background-image: url("images/accueil.jpg");
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+    background-size: cover;
+}
+
+
+.main-container {
+    background-color: #e2e2e2;
+    padding: 1.2rem;
+    border-radius: 0.8rem;
+    margin-bottom: 1.5rem;
+}

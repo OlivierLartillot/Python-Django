@@ -13,14 +13,14 @@ class PizzaForm(forms.ModelForm):
 class ToppingForm(forms.ModelForm):   
 
 
-    pizza_choices = forms.ModelMultipleChoiceField(
-    widget=forms.CheckboxSelectMultiple,
-    queryset=Pizza.objects.all()
-        )
+        #pizza_choices = forms.ModelMultipleChoiceField(
+        #widget=forms.CheckboxSelectMultiple,
+        #queryset=Pizza.objects.all()
+        #)
     class Meta:
         model = Topping    
-        fields = ['pizza', 'name']
-        labels = {'pizza': 'A quelle Pizza', 'name': 'Nom'}
+        fields = ['pizza', 'name', 'field_name']
+        labels = {'pizza': 'A quelle Pizza', 'name': 'Nom', 'field_name': 'Image'}
 
 class PizzaCommentForm(forms.ModelForm):
     class Meta:
