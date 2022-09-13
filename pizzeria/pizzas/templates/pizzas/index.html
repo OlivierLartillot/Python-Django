@@ -40,13 +40,13 @@
         <!-- <img src="http://localhost:8000/images/anchois.jpg" alt="image de {{ topping }}" /> -->
         <!-- <img src="{% static 'pizzas/anchois.jpg' %}" alt="My image"> -->
     {% if toppings %}
-    <table class="table table-responsive">
+    <table class="table table-responsive table-striped">
         <thead>
           <tr>
             <th scope="col">Nom</th>
             <th scope="col">image</th>
-            <th scope="col">Modifier</th>
-            <th scope="col">Supprimer</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
         
@@ -62,10 +62,10 @@
           </tr>
            {% endfor %}
         </tbody>
-      </table>
-      {% else %}
+    </table>
+    {% else %}
       <p>Il n'y a pas d'ingrédient pour le moment.</p>
-      {% endif %}
+    {% endif %}
         
 
 

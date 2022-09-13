@@ -1,17 +1,19 @@
 {% extends 'pizzas/base.html' %}
 
 {% block content %}
-<h1>Bienvenue utilisateur: </h1>
+{% load bootstrap  %}
+<h1>Login </h1>
 
 {% if form.errors %}
-    <p>Erreur nom utilisateur / mot de passe</p>
+    <p class="text-danger">Erreur nom utilisateur / mot de passe</p>
 {% endif %}
 
-<form method="post" action="{% url 'utilisateurs:login' %}">
+<form method="post" action="{% url 'utilisateurs:login' %}" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
 
-    <button name="submit">Se connecter</button>
+    {{ form|bootstrap }}
+
+    <button name="submit" class="btn btn-primary mt-2" >Se connecter</button>
     <input type="hidden" name="next" value="{% url 'pizzas:index' %}">
 </form> 
 

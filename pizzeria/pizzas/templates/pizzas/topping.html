@@ -1,40 +1,70 @@
 {% extends 'pizzas/base.html' %}
 
 {% block content %}
-
+{% load bootstrap %}
+{% load static %} 
     <!-- Section pizza -->
-    <h1>{{pizza}}</h1>
-    <ul>
-    {% for topping in toppings %}
-        <li>{{topping}}</li>
-    {% empty %}
-        <li>Désolé, il n'y a pas de garniture renseignée pour cette pizza !</li>
-    {% endfor %}
-    </ul>
+    <h1>{{pizza}}<span class="created_by"><i> créée par {{pizza.owner|title}}</i></span></h1>
+    
+    {% if toppings|length == 0 %}
+        <p>Désolé, il n'y a pas de garniture renseignée pour cette pizza !</p>
+    {% else %}
+    <table class="table table-responsive table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for topping in toppings %}
+            <tr>
+                <th scope="row">{{topping}}</th>
+                <th> <img src="../{{ MEDIA_URL }}media/{{topping.field_name}}" alt="{{topping}}"></th>
+            </tr>  
+            {% endfor %}      
+        </tbody>
+    </table>
+    {% endif %}
+      
+  
+           
+      
 
+    <!-- COMMENTAIRES -->
     <!-- Si ce n est pas ta pizza tu peux commenter -->
     {% if is_not_owner %}
-        <form action="{% url 'pizzas:pizzas_toppings' pizza.id %}" method="post">
+        <form action="{% url 'pizzas:pizzas_toppings' pizza.id %}" method="post" novalidate>
             {% csrf_token %}
-            {{ form.as_p }}
-            <button name="submit">Valider</button>
+            <div class="col-12">
+                {{ form|bootstrap }}
+            </div>
+            <button class="btn btn-primary mt-2 mb-2" name="submit">Valider ce commentaire</button>
         </form>
-        <h2>Tous les Commentaires</h2>
+        {% if comments %} 
+            <h2>Tous les Commentaires</h2>
+        {% else %}
+            <p>Soit le premier à écrire un commentaire sur cette pizza !</p>
+        {% endif %}
     {% else %}
-        <h2>Tous les Commentaires sur ta pizza</h2>
+        {% if comments %} 
+            <h2>Tous les Commentaires sur ta pizza</h2>
+        {% else %}
+            <p>Il n'y a pas de commentaire pour le moment.</p>
+        {% endif %}
     {% endif %} 
+
+    {% if comments %}
+        {% for comment in comments %}
+            <h3>{{ comment.title }} - {{ comment.date_added }} - {{ comment.owner|title}}</h3>
+            <p>{{ comment.text }}</p>
+        {% endfor %}
+    {% endif %}
 
     <!-- Zone des commentaires -->
     
 
-    {% for comment in comments %}
-    <h3>
-        {{ comment.title }} - {{ comment.date_added }} - {{ comment.owner}}
-    </h3>
-    <p>
-        {{ comment.text }}
-    </p>
-    {% endfor %}
+
 
 
 {% endblock content %}

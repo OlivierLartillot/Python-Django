@@ -1,13 +1,14 @@
 {% extends 'pizzas/base.html' %}
+{% load bootstrap %}
 
 {% block content %}
 
     <form method="post" action="{% url 'utilisateurs:register' %}">
 
         {% csrf_token %}
-        {{form.as_p}}
+        {{form|bootstrap}}
 
-        <button type="submit">S'inscrire</button>
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
         <input type="hidden" value="{% url 'pizzas:index' %}"/>
         
     </form>

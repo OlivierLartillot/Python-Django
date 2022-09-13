@@ -1,4 +1,4 @@
-from multiprocessing import context
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
@@ -20,5 +20,6 @@ def register(request):
         return redirect('pizzas:index')
 
     # Formulaire vierge ou invalide
-    context = {'form' : form}
+    title = "login"
+    context = {'form' : form, 'title': title}
     return render(request, 'registration/register.html', context) 

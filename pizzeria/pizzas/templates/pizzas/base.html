@@ -7,10 +7,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Document</title>
+    <title>{% if title %} {{title}} - Ma pizzeria {% else %}Ma pizzeria{% endif %}</title>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
-  
     <link rel="stylesheet" href="{% static 'pizzas/styles.css' %}">
 </head>
 <body>
@@ -45,7 +44,7 @@
  
     <main role="main" class="container main-container">
         {% if user.is_authenticated %}
-        <p>Bonjour {{ user.username }}</p>
+        <p>Utilisateur: {{ user.username|title }}</p>
         {% endif %}
         <div class="pb-2 mb-2 border-bottom">
             {% block page_header %}{% endblock page_header %}

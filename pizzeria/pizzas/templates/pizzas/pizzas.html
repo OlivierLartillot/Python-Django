@@ -3,17 +3,35 @@
 {% block content %}
 
     <h1>Liste des pizzas</h1>
-    <p><a href="{% url 'pizzas:new_pizza' %}">Ajouter une pizza</a></p>
-    <ul>
-    {% for pizza in pizzas %}
-        <li>
-            <a href="{% url 'pizzas:pizzas_toppings' pizza.id %}">{{pizza}}</a>
-            <a href="{% url 'pizzas:edit_pizza' pizza.id %}">Modifier</a>
-            <a href="{% url 'pizzas:delete_pizza' pizza.id %}">Supprimer</a>
-        </li>
-    {% empty %}
-        <li>Désolé, il n'y a pas de pizza disponinle.</li>
-    {% endfor %}
-    </ul>
+    <p><a href="{% url 'pizzas:new_pizza' %}"><button class="btn btn-success">Ajouter une pizza</button></a></p>
+    
+    {% if pizzas %}
+    <table class="table table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">image</th>
+            <th scope="col"></th>
+
+          </tr>
+        </thead>
+        
+        
+        <tbody>
+        
+            {% for pizza in pizzas%}   
+          <tr>
+            <th scope="row"><a href="{% url 'pizzas:pizzas_toppings' pizza.id %}">{{pizza}}</a></th>
+            <td><a href="{% url 'pizzas:edit_pizza' pizza.id %}"><button type="button" class="btn btn-primary btn-sm">Modifier</button></a></td>
+            <td><a href="{% url 'pizzas:delete_pizza' pizza.id %}"><button type="button" class="btn btn-danger btn-sm">X</button></a></td>
+          </tr>
+           {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+      <p>Tu n'as pas de pizza pour le moment.</p>
+    {% endif %}
+
+
 
 {% endblock content %}

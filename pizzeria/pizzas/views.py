@@ -10,13 +10,15 @@ from pizzas.functions import check_pizza_owner
 def index(request):
     toppings = Topping.objects.all()
     pizze = Pizza.objects.all() 
-    context = {'toppings': toppings, 'pizze': pizze}
+    title = "Page Accueil"
+    context = {'toppings': toppings, 'pizze': pizze, 'title': title}
     return render(request, 'pizzas/index.html', context)
 
 @login_required
 def pizzas(request):
     pizzas = Pizza.objects.filter(owner=request.user)
-    context = {'pizzas': pizzas}
+    title = "Pizza"
+    context = {'pizzas': pizzas, 'title':title}
     return render(request, 'pizzas/pizzas.html',context)
 
 @login_required
@@ -46,11 +48,13 @@ def pizzas_toppings(request, pizza_id):
     if pizza.owner != request.user:
         is_not_owner = True
     toppings = pizza.topping_set.all()
+    title = f"Description de la pizza {pizza} "
     context = {'form': form,
                'is_not_owner': is_not_owner, 
                'pizza': pizza, 
                'toppings': toppings,
                'comments': comments,
+               'title': title
                }
     return render(request, 'pizzas/topping.html',context)
 
@@ -110,7 +114,7 @@ def new_topping(request):
         form = ToppingForm()
     else:
         #Des données POST soumises ! Il faut les traiter
-        form = ToppingForm(data=request.POST)
+        form = ToppingForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('pizzas:index')

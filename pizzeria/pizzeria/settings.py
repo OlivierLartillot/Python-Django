@@ -37,6 +37,7 @@ INSTALLED_APPS = [
 
     # Applications tierces
     'bootstrap5',
+    'bootstrapform',
     'imagefit',
  
 

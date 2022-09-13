@@ -1,12 +1,18 @@
 {% extends 'pizzas/base.html' %}
 
 {% block content %}
+{% load bootstrap %}
 <h1>Ajoutez une nouvelle pizza: </h1>
 
-<form action="{% url 'pizzas:new_pizza' %}" method="post">
+<form action="{% url 'pizzas:new_pizza' %}" method="post" class="form" novalidate>
     {% csrf_token%}
-    {{ form.as_p }}
-    <button name="submit">Ajouter cette pizza</button>
+    <div class="mb-3">
+        {{ form|bootstrap }}
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter cette pizza</button>
 </form>
+
+
+
 
 {% endblock content %}
