@@ -1,4 +1,3 @@
-from multiprocessing.resource_sharer import stop
 from django.shortcuts import render, redirect
 
 from .models import Pizza, Topping, Pizza_Comment
@@ -10,7 +9,7 @@ from pizzas.functions import check_pizza_owner
 # Create your views here.
 def index(request):
     toppings = Topping.objects.all()
-    pizze = Pizza.objects.all()
+    pizze = Pizza.objects.all() 
     context = {'toppings': toppings, 'pizze': pizze}
     return render(request, 'pizzas/index.html', context)
 
@@ -111,13 +110,8 @@ def new_topping(request):
         form = ToppingForm()
     else:
         #Des données POST soumises ! Il faut les traiter
-        form = ToppingForm(request.POST, request.FILES)
+        form = ToppingForm(data=request.POST)
         if form.is_valid():
-
-            #postedForm = request.POST
-            #context = {'form':form, 'postedForm': postedForm}
-
-            #return render(request, 'pizzas/new_topping.html', context)
             form.save()
             return redirect('pizzas:index')
 

@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Applications tierces
     'bootstrap5',
     'imagefit',
+ 
 
     # app django par défaut
     'django.contrib.admin',
