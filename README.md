@@ -4,6 +4,11 @@ some exercices with python and django
 <h1>Rendu de l'application qui m'a servi à m'exercer</h1>
 
 <figure>
+  <figcaption>Administration de Django</figcaption>
+  <img src="screenshots/administration_de_Django.png" alt="Vue de l'administration de Django"  />
+</figure>
+
+<figure>
   <figcaption>Vue de la page d'accueil (grand écran)</figcaption>
   <img src="screenshots/homepage.png" alt="homepage"  />
 </figure>
