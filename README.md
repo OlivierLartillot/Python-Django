@@ -10,12 +10,12 @@ some exercices with python and django
 
 <figure>
   <figcaption>Vue de la page d'accueil téléphone</figcaption>
-  <img src="screenshots/homepage-phone.png" alt="responsive homepage pour téléphone"  />
+  <img src="screenshots/homepage_phone.png" alt="responsive homepage pour téléphone"  />
 </figure>
 
 <figure>
   <figcaption>Vue de la page d'ajout d'une pizza</figcaption>
-  <img src="screenshots/new-pizza.png" alt="Page d'ajout d'une pizza"  />
+  <img src="screenshots/new_pizza.png" alt="Page d'ajout d'une pizza"  />
 </figure>
 
 <figure>
