@@ -2,12 +2,12 @@
 some exercices with python and django
 
 <h1>Rendu de l'application qui m'a servi à m'exercer</h1>
-
-<figure>
-  <img src="screenshots/homepage.png" alt="homepage"  />
-  <figcaption>Vue de la page d'accueil grands écran</figcaption>
-</figure>
-
+<p>
+  <figure>
+    <figcaption>Vue de la page d'accueil grands écran</figcaption>
+    <img src="screenshots/homepage.png" alt="homepage"  />
+  </figure>
+</p>
 <figure>
   <img src="screenshots/homepage-phone.png" alt="responsive homepage pour téléphone"  />
   <figcaption>Vue de la page d'accueil téléphone</figcaption>
